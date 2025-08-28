@@ -2,47 +2,43 @@ name: Azure Static Web Apps CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
-  build_and_deploy_job:
+  build_and_deploy:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
-    name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
-          lfs: false
+      - uses: actions/checkout@v4
+
       - name: Build And Deploy
-        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
-with:
-  azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
-  repo_token: ${{ secrets.GITHUB_TOKEN }}
-  action: "upload"
+        with:
+          # NOTE: the token name may be long and include your env name.
+          # If this short name doesn't exist, open Repo Settings → Secrets → Actions
+          # and use the exact secret name you see there.
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
 
-  app_location: "/"        # root
-  api_location: "api"      # Azure Functions folder
-  output_location: "out"   # ← static export folder
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
 
-  app_build_command: "npm run build"
-  skip_api_build: false
+          # Paths for our project
+          app_location: "/"      # root (Next.js app)
+          api_location: "api"    # Azure Functions folder
+          output_location: "out" # Next static export output
+
+          # Build command (Next builds to /out because next.config.js has output:'export')
+          app_build_command: "npm run build"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
-    name: Close Pull Request Job
     steps:
       - name: Close Pull Request
-        id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ZEALOUS_MEADOW_0B2D2151E }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: "close"
-
