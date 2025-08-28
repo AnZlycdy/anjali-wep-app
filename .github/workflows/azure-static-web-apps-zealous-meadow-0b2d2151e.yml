@@ -20,7 +20,7 @@ jobs:
           # NOTE: the token name may be long and include your env name.
           # If this short name doesn't exist, open Repo Settings → Secrets → Actions
           # and use the exact secret name you see there.
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ZEALOUS_MEADOW_0B2D2151E2 }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_ZEALOUS}}
 
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
@@ -42,4 +42,5 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           action: "close"
+
 
