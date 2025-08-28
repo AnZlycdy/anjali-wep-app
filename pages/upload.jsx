@@ -1,0 +1,1 @@
+export default function Upload(){return (<h1>Upload Page (creators only)</h1>);}

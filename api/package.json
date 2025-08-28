@@ -1,0 +1,10 @@
+{
+  "name":"api",
+  "version":"1.0.0",
+  "private":true,
+  "dependencies":{
+    "@azure/cosmos":"^3.19.4",
+    "@azure/storage-blob":"^12.16.0",
+    "node-fetch":"^2.6.9"
+  }
+}

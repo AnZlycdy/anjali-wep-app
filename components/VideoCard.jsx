@@ -1,0 +1,1 @@
+export default function VideoCard(){return (<div>Video Card</div>);}

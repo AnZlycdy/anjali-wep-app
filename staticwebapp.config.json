@@ -1,0 +1,10 @@
+{
+  "routes": [
+    { "route": "/upload", "allowedRoles": ["creator"] },
+    { "route": "/api/videos-create", "allowedRoles": ["creator"] },
+    { "route": "/api/*", "allowedRoles": ["authenticated"] }
+  ],
+  "responseOverrides": {
+    "401": { "redirect": "/.auth/login", "statusCode": 302 }
+  }
+}

@@ -1,0 +1,1 @@
+# Azure TikTok‑lite Starter\n\nMinimal, assignment‑friendly video app.
