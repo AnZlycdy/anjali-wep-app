@@ -14,16 +14,25 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # --- Build API ourselves and force npmjs registry ---
+      - name: Use Node 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      # Install ROOT (Next.js app) deps
+      - name: Install app dependencies
+        run: npm ci || npm install
+
+      # Install API deps from npmjs.org (avoid ETARGET)
       - name: Install API dependencies (force npmjs.org)
         working-directory: api
         run: npm install --omit=dev --registry=https://registry.npmjs.org/
 
-      # --- Build the Next.js app (static export via next.config.js output:'export') ---
+      # Build Next.js (output:'export' writes to /out)
       - name: Build App
         run: npm run build
 
-      # --- Deploy both app and API (skip API build because we already did it) ---
+      # Deploy app + API (skip API build because we already did it)
       - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
